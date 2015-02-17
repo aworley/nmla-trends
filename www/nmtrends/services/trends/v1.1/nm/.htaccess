@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /nmtrends/services/trends/v1.1/nm/
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*)$ - [NC,QSA,L]
+RewriteRule ^(.*)$ index.php?action=$1 [NC,QSA,L]
