@@ -58,6 +58,22 @@ else
 	$race_column_name = 'pri_client.ethnicity';
 }
 
+$sql = "SELECT COUNT(*) AS hispanic_is_present FROM information_schema.COLUMNS 
+				WHERE TABLE_SCHEMA = '" . DB_NAME . "' AND TABLE_NAME = 'contacts' 
+				AND COLUMN_NAME = 'hispanic'";
+$result = mysql_query($sql);
+$row = mysql_fetch_assoc($result);
+
+if (1 == $row['hispanic_is_present'])
+{
+	$hispanic_column_name = 'pri_client.hispanic';
+}
+
+else 
+{
+	$hispanic_column_name = "'99'";  // We'll use this code for "unknown".
+}
+
 $sql = "SELECT
 			cases.case_id AS cms_case_id,
 			cases.created AS cms_case_created,
@@ -65,7 +81,7 @@ $sql = "SELECT
 			cases.close_date,
 			pri_client.gender,
 			{$race_column_name} AS race,
-			pri_client.ethnicity AS hispanic,
+			{$hispanic_column_name} AS hispanic,
 			pri_client.disabled,
 			IF(cases.client_age > 59,1,0) AS age_over_60,
 			pri_client.zip,
