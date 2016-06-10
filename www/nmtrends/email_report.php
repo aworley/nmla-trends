@@ -1,4 +1,6 @@
 <?php 
+require_once('init.php');
+
 $to = 'test@abc.org';
 $from = $to;
 
@@ -10,11 +12,14 @@ $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
 ob_start();
+echo "<html>\n<head>\n";
+include('html_header.php');
+echo "</head><body>";
 include('trend_summary.php');
+echo "</body></html>";
 $message = ob_get_contents();
 ob_end_clean();
 
 mail($to, $subject, $message, $headers);
 
-// echo "<pre>$headers</pre>";
-// echo $message;
+exit();
