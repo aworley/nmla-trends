@@ -14,6 +14,7 @@
 <meta name="creation-date" content="06/01/2011">
 <meta name="revisit-after" content="15 days">
 <title>New Mexico Data Sharing Project</title>
+<?php require_once('init.php'); ?>
 <?php include('html_header.php'); ?>
 <style type="text/css">
 
