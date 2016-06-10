@@ -12,6 +12,8 @@ define('DB_NAME','trends_database');
 define('DB_USER','mysql_username');
 define('DB_PASS','mysql_password');
 
+$base_url = 'https://localhost:4430/nmla-trends/www/nmtrends';
+
 ini_set('display_errors','Off');
 
 $path = "library/";

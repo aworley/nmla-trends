@@ -103,7 +103,7 @@ while (true == $keep_going && $row = mysql_fetch_assoc($result))
 			$trend_label = "trending lower";
 		}
 		
-		echo "<tr><td>New problem code {$row['label']} cases are {$trend_label}.</td><td align=\"right\"><a href=\"reporting.php?problem={$row['problem']}\" class=\"btn btn-default btn-lg\">See cases <img src=\"glyphicons/png/glyphicons_119_table.png\"></a>&nbsp;</td></tr>\n";
+		echo "<tr><td>New problem code {$row['label']} cases are {$trend_label}.</td><td align=\"right\"><a href=\"{$base_url}/reporting.php?problem={$row['problem']}\" class=\"btn btn-default btn-lg\">See cases <img src=\"{$base_url}/glyphicons/png/glyphicons_119_table.png\"></a>&nbsp;</td></tr>\n";
 		
 		echo "<tr><td colspan=\"2\">";
 		
@@ -137,4 +137,4 @@ while (true == $keep_going && $row = mysql_fetch_assoc($result))
 
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="<?php echo $base_url; ?>/js/bootstrap.min.js"></script>
