@@ -28,7 +28,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 if (isset($_SERVER['extras_path']))
 {
-	set_include_path(get_include_path() . PATH_SEPARATOR . require_once($_SERVER['extras_path'] . 'vendor/');
+	set_include_path(get_include_path() . PATH_SEPARATOR . require_once($_SERVER['extras_path'] . 'vendor/'));
 }
 
 if(mysql_connect(DB_HOST,DB_USER,DB_PASS) === false)
