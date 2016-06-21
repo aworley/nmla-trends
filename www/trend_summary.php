@@ -14,7 +14,7 @@
 
 
 
-
+$sample_size_min_cutoff = 9;
 
 // AMW 2013-12-03 - Fix missing zero values on graphs with a calendar table.
 $sql = "CREATE TEMPORARY TABLE cal (stat_date DATE);";
@@ -44,7 +44,7 @@ while ($row = mysql_fetch_assoc($result))
 */
 
 $sql = "SELECT case_trend, problem, label, IF(case_trend > 0, case_trend, ABS(case_trend/50)) AS trend_weight FROM stats LEFT JOIN menu_problem_2008 ON stats.problem=menu_problem_2008.value WHERE problem != '00' AND stat_year=" .
-	date('Y') . "  AND stat_month=" . date('n') . " ORDER by trend_weight DESC";
+	date('Y') . "  AND stat_month=" . date('n') . " AND current > {$sample_size_min_cutoff} ORDER by trend_weight DESC";
 	//echo $sql . "<br>";
 $result = mysql_query($sql) or trigger_error(mysql_error());
 
