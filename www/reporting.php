@@ -397,7 +397,7 @@ else
 $opposing_party = mysql_escape_string(pl_grab_get('opposing_party'));
 if ($opposing_party != '')
 {
-	$sql .= " AND (opp_first_name LIKE '%{$opposing_party}%' OR opp_last_name LIKE '%{$opposing_party}%')";
+	$sql .= " AND opposing_party LIKE '%{$opposing_party}%'";
 }
 
 $sql .= " ORDER by {$sort} {$sql_sort_order} LIMIT 10000";
