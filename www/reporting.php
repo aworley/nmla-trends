@@ -224,13 +224,22 @@ switch ($sort_order)
 ?>
 <div> <!-- style="position:fixed; background-color: white;" -->
 <h1>New Mexico Data Sharing Project</h1> 
-<ul class="nav nav-pills">
-	<li><a href="index.php">Trends</a></li>
-	<li class="active"> <a href="#">Reporting</a> </li>
-	<li><a href="logs.php">Data Sharing Logs</a></li>
-	<li> <a href="logout.php">Logout</a></li>
-  <li> <a href="csv.php">Export Entire Database</a></li>
-</ul>
+<div class="row">
+  <div class="col-md-10">
+    <ul class="nav nav-pills">
+    	<li><a href="index.php">Trends</a></li>
+    	<li class="active"> <a href="#">Reporting</a> </li>
+    	<li><a href="logs.php">Data Sharing Logs</a></li>
+    	<li> <a href="logout.php">Logout</a></li>
+    </ul>
+  </div>
+  <div class="col-md-2">
+    <form action="csv.php" method="GET">
+      <input type="submit" class="btn btn-primary" value="Export Entire Database">
+    </form>
+  </div>
+</div>
+
 <!--
 <div>
   <form action="csv.php" method="GET">
