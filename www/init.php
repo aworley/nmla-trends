@@ -11,6 +11,11 @@ if (isset($_SERVER['extras_path']))
 	require_once($_SERVER['extras_path'] . "/config.php");
 }
 
+else if (file_exists('config.php'))
+{
+	include_once('config.php');
+}
+
 else 
 {
 	define('DB_HOST','localhost');
