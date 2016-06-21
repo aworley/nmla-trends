@@ -135,12 +135,12 @@ function draw_menu($column, $default_value)
 	{
 	if ($x == 'zip')
 	{
-		$sql = "SELECT DISTINCT SUBSTRING(zip, 1, 5) AS zip FROM cases GROUP BY zip ORDER BY zip ASC";
+		$sql = "SELECT DISTINCT SUBSTRING(zip, 1, 5) AS zip, count(*) as a FROM cases GROUP BY zip ORDER BY zip ASC";
 	}
 	
 	else
 	{
-		$sql = "SELECT {$x} FROM cases GROUP BY {$x} ORDER BY {$x} ASC";
+		$sql = "SELECT {$x}, count(*) as a FROM cases GROUP BY {$x} ORDER BY {$x} ASC";
 	}
 	
 	//echo $sql;
@@ -158,7 +158,7 @@ function draw_menu($column, $default_value)
 			$selected = "";
 		}
 		
-		if (strlen(trim($row[$x])) > 0)
+		if (strlen(trim($row[$x])) > 0 && $row['a'] > 9  && $row[$x] != 'Bernaillo')
 		{
 			echo "<option value=\"{$row[$x]}\"{$selected}>{$row[$x]}</option>/n";
 		}
