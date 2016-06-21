@@ -14,17 +14,38 @@ include('init.php');
 
 function sql_to_csv($sql, $redact_column = null)
 {
+	/* The output of this function should exactly match the output of:
+	
+	select * from cases into outfile '/tmp/cases.csv' 
+	fields terminated by ',' enclosed by '"' lines terminated by '\n';
+	*/
+	
 	$output = fopen('php://output', 'w');
 	$rows = mysql_query($sql);
 	
 	while ($row = mysql_fetch_assoc($rows))
 	{
+		foreach ($row as $key => $val)
+		{
+			if ($val === null)
+			{
+				$row[$key] = '\N';
+			}
+			
+			else 
+			{
+				$row[$key] = str_replace('"', '\"', $val);
+			}
+		}
+		
 		if ($redact_column !== null)
 		{
 			$row[$redact_column] = "[redacted]";
 		}
+		$x = '"' . implode($row, '","') . '"' . "\n";
+		$x = str_replace('"\N"', '\N', $x);
 		
-		fputcsv($output, $row);
+		fwrite($output, $x);
 		flush();
 	}
 	
@@ -52,9 +73,9 @@ function chunk_table($table, $key)
 }
 
 $action = 'cases';
-
+$download_name = 'case-trends-' . date('M-j-Y-H-i-s');
 header('Content-Type: text/csv; charset=utf-8');
-header("Content-Disposition: attachment; filename={$action}.csv");
+header("Content-Disposition: attachment; filename={$download_name}.csv");
 
 $columns = array();
 $result = mysql_query("DESCRIBE " . $action);
