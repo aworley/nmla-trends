@@ -229,8 +229,15 @@ switch ($sort_order)
 	<li class="active"> <a href="#">Reporting</a> </li>
 	<li><a href="logs.php">Data Sharing Logs</a></li>
 	<li> <a href="logout.php">Logout</a></li>
+  <li> <a href="csv.php">Export Entire Database</a></li>
 </ul>
-
+<!--
+<div>
+  <form action="csv.php" method="GET">
+    <input type="submit" class="btn" value="Export Entire Database">
+  </form>
+</div>
+-->
 <form action="reporting.php" method="GET">
 <h2>Reporting</h2>
 
