@@ -33,31 +33,32 @@ $result = mysql_query($sql) or trigger_error(mysql_error());
 
 $keep_going = true;
 $i = 0;
+
 while (true == $keep_going && $row = mysql_fetch_assoc($result))
 {
-	$chart_elements = array();
-	
-	$sql = "CREATE TEMPORARY TABLE stats_{$row['problem']} SELECT stat_date, current, stat_year, stat_month, problem " 
-		. "FROM stats "
-		. "WHERE (stat_year != " . date('Y') . " OR stat_month <= " . date('n')
-		. ") AND problem='{$row['problem']}' ORDER BY stat_id DESC LIMIT 36;";
-	$result2 = mysql_query($sql) or trigger_error("SQL: " . $sql . ' Error: ' . mysql_error());
-
-	$sql = "SELECT COALESCE(current, 0) AS currentb, YEAR(stat_date) AS stat_yearb, MONTH(stat_date) AS stat_monthb " 
-		. "FROM cal LEFT JOIN stats_{$row['problem']} USING (stat_date)"
-		. "ORDER BY stat_date DESC LIMIT 36;";
-	$result2 = mysql_query($sql) or trigger_error("SQL: " . $sql . ' Error: ' . mysql_error());
-
-	while ($row2 = mysql_fetch_assoc($result2))
-	{
-		array_push($chart_elements, "['" . $row2['stat_yearb'] . "-" . str_pad($row2['stat_monthb'], 2, "0", STR_PAD_LEFT) . "-01'," . $row2['currentb'] . "]");
-	}
-	
-	$chart_elements = array_reverse($chart_elements);
-	$chart_data = implode(",", $chart_elements);
-		
 	if (abs($row['case_trend']) > 0 && $i < $trends_list_max_size)
 	{
+		$chart_elements = array();
+		
+		$sql = "CREATE TEMPORARY TABLE stats_{$row['problem']} SELECT stat_date, current, stat_year, stat_month, problem " 
+			. "FROM stats "
+			. "WHERE (stat_year != " . date('Y') . " OR stat_month <= " . date('n')
+			. ") AND problem='{$row['problem']}' ORDER BY stat_id DESC LIMIT 36;";
+		$result2 = mysql_query($sql) or trigger_error("SQL: " . $sql . ' Error: ' . mysql_error());
+
+		$sql = "SELECT COALESCE(current, 0) AS currentb, YEAR(stat_date) AS stat_yearb, MONTH(stat_date) AS stat_monthb " 
+			. "FROM cal LEFT JOIN stats_{$row['problem']} USING (stat_date)"
+			. "ORDER BY stat_date DESC LIMIT 36;";
+		$result2 = mysql_query($sql) or trigger_error("SQL: " . $sql . ' Error: ' . mysql_error());
+
+		while ($row2 = mysql_fetch_assoc($result2))
+		{
+			array_push($chart_elements, "['" . $row2['stat_yearb'] . "-" . str_pad($row2['stat_monthb'], 2, "0", STR_PAD_LEFT) . "-01'," . $row2['currentb'] . "]");
+		}
+		
+		$chart_elements = array_reverse($chart_elements);
+		$chart_data = implode(",", $chart_elements);
+		
 		if ($row['case_trend'] > 10)
 		{
 			$trend_label = "up significantly";
