@@ -10,10 +10,19 @@ define('NMTRENDS_NAME','New Mexico Trends System');
 define('NMTRENDS_VERSION','1');
 define('NMTRENDS_REVISION','0');
 
-define('DB_HOST','localhost');
-define('DB_NAME','trends_database');
-define('DB_USER','mysql_username');
-define('DB_PASS','mysql_password');
+if (file_exists('../../../../config.php'))
+{
+	include_once('../../../../config.php');
+}
+
+else 
+{
+	define('DB_HOST','localhost');
+	define('DB_NAME','trends_database');
+	define('DB_USER','mysql_username');
+	define('DB_PASS','mysql_password');
+}
+
 
 
 function pl_grab_req($var_name = null,$default_value = null)
