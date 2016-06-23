@@ -60,9 +60,22 @@ td{
 </head>
 <body>
 
+<?php 
+$active0 = $active1 = "";
+if (isset($_GET['all']))
+{
+	$active1 = ' class="active"';
+}
+
+else 
+{
+	$active0 = ' class="active"';
+}
+?>
 <h1>New Mexico Data Sharing Project</h1> 
 <ul class="nav nav-pills">
-	<li class="active"><a href="index.php">Trends</a></li>
+	<li<?php echo $active0; ?>><a href="index.php">Trends</a></li>
+	<li<?php echo $active1; ?>><a href="index.php?all=1">Problem Codes</a></li>
 	<li> <a href="reporting.php">Reporting</a> </li>
 	<li><a href="logs.php">Data Sharing Logs</a></li>
 	<li> <a href="logout.php">Logout</a></li>
