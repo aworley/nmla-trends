@@ -87,41 +87,48 @@ for($i =0; $i < 36; $i++)
 $sql = "update cal set stat_date = CONCAT(YEAR(stat_date), '-', MONTH(stat_date), '-01');";
 $result = mysql_query($sql) or trigger_error(mysql_error());
 
-$sql = "SELECT case_trend, problem, label, IF(case_trend > 0, case_trend, ABS(case_trend/50)) AS trend_weight FROM stats LEFT JOIN menu_problem_2008 ON stats.problem=menu_problem_2008.value WHERE problem != '00' AND stat_year=" .
-	date('Y') . "  AND stat_month=" . date('n') . " AND current > {$sample_size_min_cutoff} ORDER by trend_weight DESC";
-$result = mysql_query($sql) or trigger_error(mysql_error());
-
-$keep_going = true;
 $i = 0;
 
-while (true == $keep_going && $row = mysql_fetch_assoc($result))
+if (isset($_GET['all']))
 {
-	if (abs($row['case_trend']) > 0 && $i < $trends_list_max_size)
+	$sql = "SELECT case_trend, problem, label, IF(case_trend > 0, case_trend, ABS(case_trend/50)) AS trend_weight FROM stats LEFT JOIN menu_problem_2008 ON stats.problem=menu_problem_2008.value WHERE problem != '00' AND stat_year=" .
+		date('Y') . "  AND stat_month=" . date('n') . " ORDER by problem ASC";
+	$result = mysql_query($sql) or trigger_error(mysql_error());
+
+	while ($row = mysql_fetch_assoc($result))
 	{
 		echo trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
 		$i++;
-	}
-	
-	else 
-	{
-		$keep_going = false;
-	}
+	}	
 }
 
+else 
+{
+	$sql = "SELECT case_trend, problem, label, IF(case_trend > 0, case_trend, ABS(case_trend/50)) AS trend_weight FROM stats LEFT JOIN menu_problem_2008 ON stats.problem=menu_problem_2008.value WHERE problem != '00' AND stat_year=" .
+		date('Y') . "  AND stat_month=" . date('n') . " AND current > {$sample_size_min_cutoff} ORDER by trend_weight DESC";
+	$result = mysql_query($sql) or trigger_error(mysql_error());
+
+	$keep_going = true;
+
+	while (true == $keep_going && $row = mysql_fetch_assoc($result))
+	{
+		if (abs($row['case_trend']) > 0 && $i < $trends_list_max_size)
+		{
+			echo trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
+			$i++;
+		}
+		
+		else 
+		{
+			$keep_going = false;
+		}
+	}
+}
 ?>
 </table>
-<hr>
 <table>
 <?php
-$sql = "SELECT case_trend, problem, label, IF(case_trend > 0, case_trend, ABS(case_trend/50)) AS trend_weight FROM stats LEFT JOIN menu_problem_2008 ON stats.problem=menu_problem_2008.value WHERE problem != '00' AND stat_year=" .
-	date('Y') . "  AND stat_month=" . date('n') . " ORDER by problem ASC";
-$result = mysql_query($sql) or trigger_error(mysql_error());
 
-while ($row = mysql_fetch_assoc($result))
-{
-	echo trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
-	$i++;
-}
 ?>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->

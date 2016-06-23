@@ -44,6 +44,7 @@ require_once('init.php');
 <h1>New Mexico Data Sharing Project</h1> 
 <ul class="nav nav-pills">
 	<li><a href="index.php">Trends</a></li>
+  <li><a href="index.php?all=1">Problem Codes</a></li>
 	<li> <a href="reporting.php">Reporting</a> </li>
 	<li class="active"><a href="logs.php">Data Sharing Logs</a></li>
 	<li> <a href="logout.php">Logout</a></li>
