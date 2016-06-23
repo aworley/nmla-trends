@@ -110,7 +110,19 @@ while (true == $keep_going && $row = mysql_fetch_assoc($result))
 
 ?>
 </table>
+<hr>
+<table>
+<?php
+$sql = "SELECT case_trend, problem, label, IF(case_trend > 0, case_trend, ABS(case_trend/50)) AS trend_weight FROM stats LEFT JOIN menu_problem_2008 ON stats.problem=menu_problem_2008.value WHERE problem != '00' AND stat_year=" .
+	date('Y') . "  AND stat_month=" . date('n') . " ORDER by problem ASC";
+$result = mysql_query($sql) or trigger_error(mysql_error());
 
+while ($row = mysql_fetch_assoc($result))
+{
+	echo trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
+	$i++;
+}
+?>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo $base_url; ?>/js/bootstrap.min.js"></script>
