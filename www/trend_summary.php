@@ -15,6 +15,7 @@
 
 
 $sample_size_min_cutoff = 9;
+$trends_list_max_size = 5;
 
 // AMW 2013-12-03 - Fix missing zero values on graphs with a calendar table.
 $sql = "CREATE TEMPORARY TABLE cal (stat_date DATE);";
@@ -81,7 +82,7 @@ while (true == $keep_going && $row = mysql_fetch_assoc($result))
 	$chart_elements = array_reverse($chart_elements);
 	$chart_data = implode(",", $chart_elements);
 		
-	if (abs($row['case_trend']) > 0 && $i < 15)
+	if (abs($row['case_trend']) > 0 && $i < $trends_list_max_size)
 	{
 		if ($row['case_trend'] > 10)
 		{
