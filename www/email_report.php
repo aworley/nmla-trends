@@ -21,6 +21,14 @@ echo "</body></html>";
 $message = ob_get_contents();
 ob_end_clean();
 
-mail($to, $subject, $message, $headers);
+if (defined('STDIN'))
+{
+  mail($to, $subject, $message, $headers);
+}
+
+else 
+{
+  echo $message;
+}
 
 exit();
