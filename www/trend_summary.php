@@ -130,10 +130,10 @@ else
 			// Email trend cutoff is +4.
 			if ($row['case_trend'] > 4)
 			{
-				$output .= "New problem code {$row['label']} cases are higher.</td>
+				$output .= "<tr><td>New problem code {$row['label']} cases are higher.</td>
 				<td align=\"right\">
 				<a href=\"{$base_url}/reporting.php?problem={$row['problem']}\" class=\"btn btn-default\">
-				View These Cases</a>";
+				View These Cases</a></td></tr>";
 			}
 			
 			else 
