@@ -123,39 +123,44 @@ else
 		$trend_min_cutoff = 4;
 	}
 
-	while (true == $keep_going && $row = mysql_fetch_assoc($result))
+	while ($row = mysql_fetch_assoc($result))
 	{
 		if ('email' == $mode)
 		{
 			// Email trend cutoff is +4.
-			if ($row['case_trend'] > 4 && $i < $trends_list_max_size)
+			if ($row['case_trend'] > 4)
 			{
 				$output .= "New problem code {$row['label']} cases are higher.</td>
 				<td align=\"right\">
 				<a href=\"{$base_url}/reporting.php?problem={$row['problem']}\" class=\"btn btn-default\">
 				View These Cases</a>";
-				$i++;
 			}
 			
 			else 
 			{
-				$keep_going = false;
+				break;
 			}
 		}
 		
 		else
 		{
 			// WWW trend cutoff is higher or lower than 0.
-			if (abs($row['case_trend']) > 0 && $i < $trends_list_max_size)
+			if (abs($row['case_trend']) > 0)
 			{
 				$output .= trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
-				$i++;
 			}
 			
 			else 
 			{
-				$keep_going = false;
+				break;
 			}
+		}
+		
+		$i++;
+
+		if ($i >= $trends_list_max_size)
+		{
+			break;
 		}
 	}
 }
