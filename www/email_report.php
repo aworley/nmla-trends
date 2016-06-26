@@ -1,8 +1,8 @@
 <?php 
 require_once('init.php');
 
-$to = 'test@abc.org';
-$from = $to;
+$to = $email_to;
+$from = $email_from;
 
 $subject = 'CMS Trends for ' . date('l, F jS Y');
 
