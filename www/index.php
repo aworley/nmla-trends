@@ -80,6 +80,6 @@ else
 	<li><a href="logs.php">Data Sharing Logs</a></li>
 	<li> <a href="logout.php">Logout</a></li>
 </ul>
-<?php include('trend_summary.php'); ?>
+<?php include('trend_summary.php'); echo trend_summary($base_url); ?>
 </body>
 </html>

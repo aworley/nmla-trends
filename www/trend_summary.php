@@ -1,21 +1,14 @@
-<h2>Case Trend Report for <?php echo date('F jS, Y'); ?></h2>
-<p>In the last 45 days...</p>
-<table>
-<?php 
-
-
+<?php
 /***************************/
 /* Pika NM Trends (C) 2013 */
 /* Pika Software, LLC.     */
 /* http://pikasoftware.com */
 /***************************/
 
-$sample_size_min_cutoff = 9;
-$trends_list_max_size = 5;
-
 function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 {
 	$chart_elements = array();
+	$o = '';
 	
 	$sql = "CREATE TEMPORARY TABLE stats_{$problem} SELECT stat_date, current, stat_year, stat_month, problem " 
 		. "FROM stats "
@@ -56,21 +49,36 @@ function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 		$trend_label = "trending lower";
 	}
 	
-	echo "<tr><td>New problem code {$label} cases are {$trend_label}.</td><td align=\"right\"><a href=\"{$base_url}/reporting.php?problem={$problem}\" class=\"btn btn-default btn-lg\">See cases <img src=\"{$base_url}/glyphicons/png/glyphicons_119_table.png\"></a>&nbsp;</td></tr>\n";
+	$o .= "<tr><td>New problem code {$label} cases are {$trend_label}.</td><td align=\"right\"><a href=\"{$base_url}/reporting.php?problem={$problem}\" class=\"btn btn-default btn-lg\">See cases <img src=\"{$base_url}/glyphicons/png/glyphicons_119_table.png\"></a>&nbsp;</td></tr>\n";
 	
-	echo "<tr><td colspan=\"2\">";
+	$o .= "<tr><td colspan=\"2\">";
 	
-	echo "<div id=\"chart{$chart_id}\" style=\"height:200px;width:800px;\"></div>\n";
-	echo "<script type=\"text/javascript\">\n";
-	echo "	$(document).ready(function(){ \n";
-	echo "	  var plot{$chart_id} = $.jqplot ('chart{$chart_id}', [[{$chart_data}]], {
+	$o .= "<div id=\"chart{$chart_id}\" style=\"height:200px;width:800px;\"></div>\n";
+	$o .= "<script type=\"text/javascript\">\n";
+	$o .= "	$(document).ready(function(){ \n";
+	$o .= "	  var plot{$chart_id} = $.jqplot ('chart{$chart_id}', [[{$chart_data}]], {
 	title:'" .$label ."',
 	axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer}},
 	series:[{lineWidth:4, markerOptions:{style:'square'}}]
 }); \n";
-	echo "}); \n";
-	echo "</script>\n<br><br><br></td></tr>";
+	$o .= "}); \n";
+	$o .= "</script>\n<br><br><br></td></tr>";
+	
+	return $o;
 }
+
+function trend_summary($base_url = '', $mode = 'www') 
+{
+	$output = "
+<h2>Case Trend Report for ". date('F jS, Y') . "</h2>
+<p>In the last 45 days...</p>
+<table>
+";
+
+$sample_size_min_cutoff = 9;
+$trends_list_max_size = 5;
+
+
 
 
 // AMW 2013-12-03 - Fix missing zero values on graphs with a calendar table.
@@ -97,7 +105,7 @@ if (isset($_GET['all']))
 
 	while ($row = mysql_fetch_assoc($result))
 	{
-		echo trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
+		$output .= trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
 		$i++;
 	}	
 }
@@ -114,7 +122,7 @@ else
 	{
 		if (abs($row['case_trend']) > 0 && $i < $trends_list_max_size)
 		{
-			echo trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
+			$output .= trend_graph($row['problem'], $row['case_trend'], $row['label'], $i, $base_url);
 			$i++;
 		}
 		
@@ -124,12 +132,12 @@ else
 		}
 	}
 }
-?>
+
+$output .= '
 </table>
 <table>
-<?php
-
-?>
-
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?php echo $base_url; ?>/js/bootstrap.min.js"></script>
+    <script src="' . $base_url . '/js/bootstrap.min.js"></script>
+';
+	return $output;
+}

@@ -16,6 +16,7 @@ echo "<html>\n<head>\n";
 include('html_header.php');
 echo "</head><body>";
 include('trend_summary.php');
+echo trend_summary($base_url, 'email');
 echo "</body></html>";
 $message = ob_get_contents();
 ob_end_clean();
