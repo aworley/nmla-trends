@@ -130,7 +130,10 @@ else
 			// Email trend cutoff is +4.
 			if ($row['case_trend'] > 4 && $i < $trends_list_max_size)
 			{
-				$output .= "New problem code {$row['label']} cases are higher.</td><td align=\"right\"><a href=\"{$base_url}/reporting.php?problem={$row['problem']}\" class=\"btn btn-default btn-lg\">See cases <img src=\"{$base_url}/glyphicons/png/glyphicons_119_table.png\"></a>";
+				$output .= "New problem code {$row['label']} cases are higher.</td>
+				<td align=\"right\">
+				<a href=\"{$base_url}/reporting.php?problem={$row['problem']}\" class=\"btn btn-default\">
+				View These Cases</a>";
 				$i++;
 			}
 			
