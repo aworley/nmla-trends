@@ -227,8 +227,8 @@ switch ($sort_order)
 <div class="row">
   <div class="col-md-10">
     <ul class="nav nav-pills">
-    	<li><a href="index.php">Trends</a></li>
-      <li><a href="index.php?all=1">Problem Codes</a></li>
+    	<li><a href="index.php">Top Trends</a></li>
+      <li><a href="index.php?all=1">Problem Code Trends</a>
     	<li class="active"> <a href="#">Reporting</a> </li>
     	<li><a href="logs.php">Data Sharing Logs</a></li>
     	<li> <a href="logout.php">Logout</a></li>
