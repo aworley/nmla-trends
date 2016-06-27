@@ -15,7 +15,7 @@ CREATE TABLE `cases` (
   `open_date` date DEFAULT NULL,
   `close_date` date DEFAULT NULL,
   `gender` char(3) DEFAULT NULL,
-  `race` char(3) DEFAULT NULL,
+  `race` char(22) DEFAULT NULL,
   `hispanic` tinyint(1) DEFAULT NULL,
   `disabled` tinyint(1) DEFAULT NULL,
   `age_over_60` tinyint(1) DEFAULT NULL,

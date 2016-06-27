@@ -151,13 +151,183 @@ switch($action) {
 			$case_row['organization_id'] = $auth_row['organization_id'];
 
 			// AMW 2014-05-18 - Temp fix.  Someone jumbled the ethnicity/race/hispanic values.
-			/*
-			$case_row['temp123456'] = $row['race'];
-			$case_row['race'] = $row['hispanic'];
-			$case_row['hispanic'] = $case_row['temp123456'];
-			unset($case_row['temp123456']);
-			*/
+			// AMW 2016-06-27 - Re-enabling this just for Law Access
+			if (2 == $auth_row['organization_id'])
+			{
+				$case_row['temp123456'] = $row['race'];
+				$case_row['race'] = $row['hispanic'];
+				$case_row['hispanic'] = $case_row['temp123456'];
+				unset($case_row['temp123456']);
+			}
+			
+			// Hispanic code merging needs to be done before Race merging because
+			// some of the logic relies on the original race code.
+			if ($case_row['hispanic'] != 1 && $case_row['race'] == '30')
+			{
+				switch ($auth_row['organization_id'])
+					{
+						case '1':
+						case '2':
+						case '4':
+						case '6':
+							$case_row['hispanic'] = 1;
+							break;
+					}
+			}
+			
+			if ($case_row['hispanic'] != 1 && $case_row['race'] == 'H' &&
+					$auth_row['organization_id'] == '3')
+			{
+						$case_row['hispanic'] = 1;
+			}
+			
+			// White
+			if ($case_row['race'] == '10' && 
+					($auth_row['organization_id'] == '1' || 
+					 $auth_row['organization_id'] == '2' ||
+					 $auth_row['organization_id'] == '6'))
+			{
+				$case_row['race'] = 'White';
+			}
+			
+			else if ($case_row['race'] == 'W' && $auth_row['organization_id'] == '3')
+			{
+				$case_row['race'] = 'White';
+			}
+			
+			else if ($case_row['race'] == '20' && $auth_row['organization_id'] == '4')
+			{
+				$case_row['race'] = 'White';
+			}
 
+			// Black
+			else if ($case_row['race'] == '20' && 
+					($auth_row['organization_id'] == '1' || 
+					 $auth_row['organization_id'] == '2' ||
+					 $auth_row['organization_id'] == '6'))
+			{
+				$case_row['race'] = 'Black';
+			}
+			
+			else if ($case_row['race'] == 'B' && $auth_row['organization_id'] == '3')
+			{
+				$case_row['race'] = 'Black';
+			}
+			
+			else if ($case_row['race'] == '40' && $auth_row['organization_id'] == '4')
+			{
+				$case_row['race'] = 'Black';
+			}
+			
+			// Native American
+			else if ($case_row['race'] == '40' && 
+					($auth_row['organization_id'] == '1' || 
+					 $auth_row['organization_id'] == '2' ||
+					 $auth_row['organization_id'] == '6'))
+			{
+				$case_row['race'] = 'Native American';
+			}
+			
+			else if ($case_row['race'] == 'N' && $auth_row['organization_id'] == '3')
+			{
+				$case_row['race'] = 'Native American';
+			}
+			
+			else if ($case_row['race'] == '60' && $auth_row['organization_id'] == '4')
+			{
+				$case_row['race'] = 'Native American';
+			}
+
+			// Asian/Pacific Islander
+			else if ($case_row['race'] == '50' && 
+					($auth_row['organization_id'] == '1' || 
+					 $auth_row['organization_id'] == '2' ||
+					 $auth_row['organization_id'] == '4'))
+			{
+				$case_row['race'] = 'Asian/Pacific Islander';
+			}
+			
+			else if (($case_row['race'] == '50' ||
+								$case_row['race'] == '60' ||
+								$case_row['race'] == '70') && $auth_row['organization_id'] == '6')
+			{
+				$case_row['race'] = 'Asian/Pacific Islander';
+			}
+
+			// Multiracial
+			else if ($case_row['race'] == 'MR' && $auth_row['organization_id'] == '1')
+			{
+				$case_row['race'] = 'Multiracial';
+			}
+			
+			else if ($case_row['race'] == '60' && $auth_row['organization_id'] == '2')
+			{
+				$case_row['race'] = 'Multiracial';
+			}
+			
+			else if ($case_row['race'] == '80' && $auth_row['organization_id'] == '6')
+			{
+				$case_row['race'] = 'Multiracial';
+			}
+				
+			// Other
+			else if ($case_row['race'] == '99' && 
+					($auth_row['organization_id'] == '1' || 
+					 $auth_row['organization_id'] == '2' ||
+					 $auth_row['organization_id'] == '6'))
+			{
+				$case_row['race'] = 'Other';
+			}
+			
+			else if ($case_row['race'] == 'O' && $auth_row['organization_id'] == '3')
+			{
+				$case_row['race'] = 'Other';
+			}
+			
+			else if (($case_row['race'] == '70' || $case_row['race'] == '99') && 
+							 $auth_row['organization_id'] == '4')
+			{
+				$case_row['race'] = 'Other';
+			}			
+			
+			// Not Entered
+			else if ($case_row['race'] == 'X' && 
+					($auth_row['organization_id'] == '1' || 
+					 $auth_row['organization_id'] == '2' ||
+					 $auth_row['organization_id'] == '3'))
+			{
+				$case_row['race'] = 'Not Entered';
+			}
+			
+			else if ($case_row['race'] == '10' && $auth_row['organization_id'] == '4')
+			{
+				$case_row['race'] = 'Not Entered';
+			}
+
+			else if (strlen($case_row['race']) == 0 && 
+					($auth_row['organization_id'] == '1' || 
+					 $auth_row['organization_id'] == '2' ||
+					 $auth_row['organization_id'] == '3' ||
+					 $auth_row['organization_id'] == '4' ||
+					 $auth_row['organization_id'] == '6'))
+			{
+				$case_row['race'] = 'Not Entered';
+			}
+			
+			else if ($case_row['race'] == '30' && 
+					($auth_row['organization_id'] == '1' || 
+					 $auth_row['organization_id'] == '2' ||
+					 $auth_row['organization_id'] == '4' ||
+					 $auth_row['organization_id'] == '6'))
+			{
+				$case_row['race'] = 'Not Entered';
+			}
+			
+			else if ($case_row['race'] == 'H' && $auth_row['organization_id'] == '3')
+			{
+				$case_row['race'] = 'Not Entered';
+			}
+			
 			foreach ($col_list_array as $field_name)
 			{
 				// AMW 2013-12-03 - problem code cleanup
