@@ -151,14 +151,12 @@ switch($action) {
 			$case_row['organization_id'] = $auth_row['organization_id'];
 
 			// AMW 2014-05-18 - Temp fix.  Someone jumbled the ethnicity/race/hispanic values.
-			// AMW 2016-06-27 - Re-enabling this just for Law Access
-			if (2 == $auth_row['organization_id'])
-			{
-				$case_row['temp123456'] = $row['race'];
-				$case_row['race'] = $row['hispanic'];
-				$case_row['hispanic'] = $case_row['temp123456'];
-				unset($case_row['temp123456']);
-			}
+			/*
+			$case_row['temp123456'] = $row['race'];
+			$case_row['race'] = $row['hispanic'];
+			$case_row['hispanic'] = $case_row['temp123456'];
+			unset($case_row['temp123456']);
+			*/
 			
 			// Hispanic code merging needs to be done before Race merging because
 			// some of the logic relies on the original race code.
