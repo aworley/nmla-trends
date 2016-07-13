@@ -69,11 +69,35 @@ function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 
 function trend_summary($base_url = '', $mode = 'www') 
 {
-	$output = "
-<h2>Case Trend Report for ". date('F jS, Y') . "</h2>
-<p>In the last 45 days...</p>
-<table>
-";
+	$output = '';
+	
+	if (isset($_GET['all']))  // Trends by problem code.
+	{
+		$output .= "
+		<h2>Case Trend Report by Legal Problem Code for ". date('F jS, Y') . "</h2>
+		<p>In the last 45 days...</p>
+		<table>
+		";
+	}
+	
+	else if ('www' == $mode)  // Top trends.
+	{
+		$output .= "
+		<h2>Case Trend Report for ". date('F jS, Y') . "</h2>
+		<p>In the last 45 days...</p>
+		<table>
+		";		
+	}
+	
+	else // Email alert.
+	{
+		$output .= "
+		<h2>Case Trend Alert for ". date('F jS, Y') . "</h2>
+		<p>In the last 45 days, the legal problem codes with the largest changes in 
+		case volume are...</p>
+		<table>
+		";
+	}
 
 $sample_size_min_cutoff = 9;
 $trends_list_max_size = 5;
