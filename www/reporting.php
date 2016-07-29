@@ -1,5 +1,8 @@
 <?php
 
+require_once('init.php');
+require_once('pl.php');
+
 function build_report_sql()
 {
   $start_date = mysql_real_escape_string(pl_date_mogrify(pl_grab_get('start_date')));
@@ -65,6 +68,13 @@ function build_report_sql()
   
   return $sql;
 }
+
+if (isset($_GET['csv_mode']))
+{
+  echo sql_to_csv(build_report_sql());
+  exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,10 +157,6 @@ td{
 /* Pika Software, LLC.     */
 /* http://pikasoftware.com */
 /***************************/
-
-
-require_once('init.php');
-require_once('pl.php');
 
 function draw_menu($column, $default_value)
 {
@@ -404,6 +410,7 @@ Date range (Overrides the previous selection)<br>
 		</select></label></p>
 
 <input type="submit" class="btn btn-success" value="Run Report">
+<input type="submit" class="btn btn-success" name="csv_mode" value="Download Data">
 </form>
 </div>
 <div> <!-- style="padding-top: 31.5em;" -->
