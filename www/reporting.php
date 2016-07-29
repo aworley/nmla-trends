@@ -1,3 +1,71 @@
+<?php
+
+function build_report_sql()
+{
+  $start_date = mysql_real_escape_string(pl_date_mogrify(pl_grab_get('start_date')));
+  $end_date = mysql_real_escape_string(pl_date_mogrify(pl_grab_get('end_date')));
+  $sort = pl_grab_get('sort', 'open_date');
+  $sort_order = pl_grab_get('sort_order', 'desc');
+
+  switch ($sort_order)
+  {
+  	case 'asc':
+  	$sql_sort_order = 'ASC';
+  	break;
+  	
+  	default:
+  	$sql_sort_order = 'DESC';
+  	break;
+  }
+  
+  $sql = "SELECT cases.*, username, site_url FROM cases LEFT JOIN organizations using (organization_id) WHERE 1";
+  $sql .= build_where('gender');
+  $sql .= build_where('race');
+  $sql .= build_where('hispanic');
+  $sql .= build_where('disabled');
+  $sql .= build_where('age_over_60');
+  $sql .= build_where('problem');
+  $sql .= build_where('outcome');
+  $sql .= build_where('zip');
+  $sql .= build_where('county');
+
+  $org = mysql_escape_string(pl_grab_get('org'));
+  if ($org && $org !='all')
+  {
+  	$sql .= " AND organization_id='{$org}'";
+  }
+  
+  if ($start_date || $end_date)
+  {
+  	if ($start_date)
+  	{
+  		$sql .= " AND open_date >= '{$start_date}'";
+  	}
+
+  	if ($end_date)
+  	{
+  		$sql .= " AND open_date <= '{$end_date}'";
+  	}
+  }
+
+  else
+  {
+  	$days = mysql_escape_string(pl_grab_get('days', 30));
+  	$cut_off_date = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-$days,   date("Y")));
+  	$sql .= " AND open_date > '{$cut_off_date}'";
+  }
+
+  $opposing_party = mysql_escape_string(pl_grab_get('opposing_party'));
+  if ($opposing_party != '')
+  {
+  	$sql .= " AND opposing_party LIKE '%{$opposing_party}%'";
+  }
+
+  $sql .= " ORDER by {$sort} {$sql_sort_order} LIMIT 10000";
+  
+  return $sql;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -210,17 +278,6 @@ $end_date = mysql_real_escape_string(pl_grab_get('end_date'));
 $sort = pl_grab_get('sort', 'open_date');
 $sort_order = pl_grab_get('sort_order', 'desc');
 
-switch ($sort_order)
-{
-	case 'asc':
-	$sql_sort_order = 'ASC';
-	break;
-	
-	default:
-	$sql_sort_order = 'DESC';
-	break;
-}
-
 ?>
 <div> <!-- style="position:fixed; background-color: white;" -->
 <h1>New Mexico Data Sharing Project</h1> 
@@ -355,54 +412,7 @@ Date range (Overrides the previous selection)<br>
 <tr><th>Organization</th><th>Open&nbsp;Date</th><th>Close&nbsp;Date</th><th>Gender</th><th>Race</th><th>Hispanic</th><th>Disabled</th><th>Older&nbsp;than&nbsp;60&nbsp;yrs</th><th>ZIP&nbsp;Code</th><th>County</th><th>Opposing&nbsp;Party</th><th>Court</th><th>Judge</th><th>LSC&nbsp;Problem&nbsp;Code</th><th>Outcome&nbsp;Code</th></tr>
 <?php 
 
-$sql = "SELECT cases.*, username, site_url FROM cases LEFT JOIN organizations using (organization_id) WHERE 1";
-$sql .= build_where('gender');
-$sql .= build_where('race');
-$sql .= build_where('hispanic');
-$sql .= build_where('disabled');
-$sql .= build_where('age_over_60');
-$sql .= build_where('problem');
-$sql .= build_where('outcome');
-$sql .= build_where('zip');
-$sql .= build_where('county');
-
-$org = mysql_escape_string(pl_grab_get('org'));
-if ($org && $org !='all')
-{
-	$sql .= " AND organization_id='{$org}'";
-}
-
-$start_date = pl_date_mogrify($start_date);
-$end_date = pl_date_mogrify($end_date);
-
-if ($start_date || $end_date)
-{
-	if ($start_date)
-	{
-		$sql .= " AND open_date >= '{$start_date}'";
-	}
-
-	if ($end_date)
-	{
-		$sql .= " AND open_date <= '{$end_date}'";
-	}
-}
-
-else
-{
-	$days = mysql_escape_string(pl_grab_get('days', 30));
-	$cut_off_date = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-$days,   date("Y")));
-	$sql .= " AND open_date > '{$cut_off_date}'";
-}
-
-$opposing_party = mysql_escape_string(pl_grab_get('opposing_party'));
-if ($opposing_party != '')
-{
-	$sql .= " AND opposing_party LIKE '%{$opposing_party}%'";
-}
-
-$sql .= " ORDER by {$sort} {$sql_sort_order} LIMIT 10000";
-//echo $sql;
+$sql = build_report_sql();
 $result = mysql_query($sql);
 $i = 0;
 while ($row = mysql_fetch_assoc($result))
