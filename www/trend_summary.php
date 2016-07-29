@@ -69,6 +69,7 @@ function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 
 function trend_summary($base_url = '', $mode = 'www') 
 {
+	$trend_email_min_cutoff = 4;
 	$output = "
 <h2>Case Trend Report for ". date('F jS, Y') . "</h2>
 <p>In the last 45 days...</p>
@@ -118,11 +119,6 @@ else
 
 	$keep_going = true;
 	
-	if ('email' == $mode)
-	{
-		$trend_min_cutoff = 4;
-	}
-
 	while ($row = mysql_fetch_assoc($result))
 	{
 		if ('email' == $mode)
