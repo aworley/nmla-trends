@@ -420,7 +420,7 @@ Date range (Overrides the previous selection)<br>
 </div>
 <div>
 <input type="submit" class="btn btn-success" value="Run Report">
-<input type="submit" class="btn btn-success" name="csv_mode" value="Download Data">
+<input type="submit" class="btn btn-success" name="csv_mode" value="Download Report Data">
 <a href="csv.php" class="btn btn-success">Export Entire Database</a>
 </div>
 </form>
