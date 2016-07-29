@@ -3,7 +3,7 @@
 require_once('init.php');
 require_once('pl.php');
 
-function build_report_sql()
+function build_report_sql($select_columns)
 {
   $start_date = mysql_real_escape_string(pl_date_mogrify(pl_grab_get('start_date')));
   $end_date = mysql_real_escape_string(pl_date_mogrify(pl_grab_get('end_date')));
@@ -21,7 +21,7 @@ function build_report_sql()
   	break;
   }
   
-  $sql = "SELECT cases.*, username, site_url FROM cases LEFT JOIN organizations using (organization_id) WHERE 1";
+  $sql = "SELECT {$select_columns} FROM cases LEFT JOIN organizations using (organization_id) WHERE 1";
   $sql .= build_where('gender');
   $sql .= build_where('race');
   $sql .= build_where('hispanic');
@@ -71,7 +71,15 @@ function build_report_sql()
 
 if (isset($_GET['csv_mode']))
 {
-  echo sql_to_csv(build_report_sql());
+  set_time_limit(900);
+  ini_set('memory_limit', '512M');
+  ini_set("zlib.output_compression", "On");
+  ini_set("zlib.output_compression_level", 9);
+  
+  $download_name = 'case-trends-' . date('M-j-Y-H-i-s');
+  header('Content-Type: text/csv; charset=utf-8');
+  header("Content-Disposition: attachment; filename={$download_name}.csv");
+  echo sql_to_csv(build_report_sql("username, open_date, close_date, gender, race, hispanic, disabled, age_over_60, zip, county, opposing_party, court_name, judge_name, problem, outcome"));
   exit();
 }
 
@@ -419,7 +427,7 @@ Date range (Overrides the previous selection)<br>
 <tr><th>Organization</th><th>Open&nbsp;Date</th><th>Close&nbsp;Date</th><th>Gender</th><th>Race</th><th>Hispanic</th><th>Disabled</th><th>Older&nbsp;than&nbsp;60&nbsp;yrs</th><th>ZIP&nbsp;Code</th><th>County</th><th>Opposing&nbsp;Party</th><th>Court</th><th>Judge</th><th>LSC&nbsp;Problem&nbsp;Code</th><th>Outcome&nbsp;Code</th></tr>
 <?php 
 
-$sql = build_report_sql();
+$sql = build_report_sql("cases.*, username, site_url");
 $result = mysql_query($sql);
 $i = 0;
 while ($row = mysql_fetch_assoc($result))
