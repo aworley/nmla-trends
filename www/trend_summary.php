@@ -69,6 +69,9 @@ function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 
 function trend_summary($base_url = '', $mode = 'www') 
 {
+	$trend_email_min_cutoff = 2;
+	$sample_size_min_cutoff = 9;
+	$trends_list_max_size = 5;
 	$output = '';
 	
 	if (isset($_GET['all']))  // Trends by problem code.
@@ -98,12 +101,6 @@ function trend_summary($base_url = '', $mode = 'www')
 		<table>
 		";
 	}
-
-$sample_size_min_cutoff = 9;
-$trends_list_max_size = 5;
-
-
-
 
 // AMW 2013-12-03 - Fix missing zero values on graphs with a calendar table.
 $sql = "CREATE TEMPORARY TABLE cal (stat_date DATE);";
@@ -142,17 +139,11 @@ else
 
 	$keep_going = true;
 	
-	if ('email' == $mode)
-	{
-		$trend_min_cutoff = 4;
-	}
-
 	while ($row = mysql_fetch_assoc($result))
 	{
 		if ('email' == $mode)
 		{
-			// Email trend cutoff is +4.
-			if ($row['case_trend'] > 4)
+			if ($row['case_trend'] > $trend_email_min_cutoff)
 			{
 				$output .= "<tr><td>New problem code {$row['label']} cases are higher.</td>
 				<td align=\"right\">
