@@ -70,17 +70,13 @@ function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 function trend_summary($base_url = '', $mode = 'www') 
 {
 	$trend_email_min_cutoff = 4;
+	$sample_size_min_cutoff = 9;
+	$trends_list_max_size = 5;
 	$output = "
 <h2>Case Trend Report for ". date('F jS, Y') . "</h2>
 <p>In the last 45 days...</p>
 <table>
 ";
-
-$sample_size_min_cutoff = 9;
-$trends_list_max_size = 5;
-
-
-
 
 // AMW 2013-12-03 - Fix missing zero values on graphs with a calendar table.
 $sql = "CREATE TEMPORARY TABLE cal (stat_date DATE);";
