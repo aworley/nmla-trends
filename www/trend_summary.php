@@ -78,7 +78,7 @@ function trend_summary($base_url = '', $mode = 'www')
 	{
 		$output .= "
 		<h2>Case Trend Report by Legal Problem Code for ". date('F jS, Y') . "</h2>
-		<p>In the last 45 days...</p>
+		<p>Intake Trend Report for the past 45 days by Legal Problem Code for " . date('F jS, Y') . "</p>
 		<table>
 		";
 	}
@@ -87,7 +87,7 @@ function trend_summary($base_url = '', $mode = 'www')
 	{
 		$output .= "
 		<h2>Case Trend Report for ". date('F jS, Y') . "</h2>
-		<p>In the last 45 days...</p>
+		<p>In the past 45 days, the legal problem codes with the largest changes in intake volume are...</p>
 		<table>
 		";		
 	}
