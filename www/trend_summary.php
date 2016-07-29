@@ -69,7 +69,7 @@ function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 
 function trend_summary($base_url = '', $mode = 'www') 
 {
-	$trend_email_min_cutoff = 4;
+	$trend_email_min_cutoff = 2;
 	$sample_size_min_cutoff = 9;
 	$trends_list_max_size = 5;
 	$output = "
@@ -119,8 +119,7 @@ else
 	{
 		if ('email' == $mode)
 		{
-			// Email trend cutoff is +4.
-			if ($row['case_trend'] > 4)
+			if ($row['case_trend'] > $trend_email_min_cutoff)
 			{
 				$output .= "<tr><td>New problem code {$row['label']} cases are higher.</td>
 				<td align=\"right\">
