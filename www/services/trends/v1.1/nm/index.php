@@ -339,6 +339,18 @@ switch($action) {
 				$case_row['race'] = 'Not Entered';
 			}
 			
+			// The 99's mean the program is omitting that data.
+			// The others are used to clean dirty data, and hopefully can be removed
+			// at a future date.
+			if ($case_row['hispanic'] == '10'
+					|| $case_row['hispanic'] == '20'
+					|| $case_row['hispanic'] == '40'
+					|| $case_row['hispanic'] == '50'
+					|| $case_row['hispanic'] == '99')
+			{
+				$case_row['hispanic'] = null;
+			}
+			
 			foreach ($col_list_array as $field_name)
 			{
 				// AMW 2013-12-03 - problem code cleanup
