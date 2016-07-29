@@ -79,7 +79,7 @@ if (isset($_GET['csv_mode']))
   $download_name = 'case-trends-' . date('M-j-Y-H-i-s');
   header('Content-Type: text/csv; charset=utf-8');
   header("Content-Disposition: attachment; filename={$download_name}.csv");
-  echo sql_to_csv(build_report_sql("username, open_date, close_date, gender, race, hispanic, disabled, age_over_60, zip, county, opposing_party, court_name, judge_name, problem, outcome"));
+  echo sql_to_csv(build_report_sql("username, open_date, IFNULL(close_date, ''), gender, race, hispanic, disabled, age_over_60, zip, county, opposing_party, court_name, judge_name, problem, outcome"));
   exit();
 }
 
