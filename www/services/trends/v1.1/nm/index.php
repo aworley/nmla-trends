@@ -254,6 +254,11 @@ switch($action) {
 			{
 				$case_row['race'] = 'Asian/Pacific Islander';
 			}
+			
+			else if ($case_row['race'] == 'A' && $auth_row['organization_id'] == '3')
+			{
+				$case_row['race'] = 'Asian/Pacific Islander';
+			}
 
 			// Multiracial
 			else if ($case_row['race'] == 'MR' && $auth_row['organization_id'] == '1')
@@ -270,7 +275,12 @@ switch($action) {
 			{
 				$case_row['race'] = 'Multiracial';
 			}
-				
+			
+			else if ($case_row['race'] == 'M' && $auth_row['organization_id'] == '1')
+			{
+				$case_row['race'] = 'Multiracial';
+			}
+			
 			// Other
 			else if ($case_row['race'] == '99' && 
 					($auth_row['organization_id'] == '1' || 
