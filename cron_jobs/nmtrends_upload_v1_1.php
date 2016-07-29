@@ -71,7 +71,7 @@ if (1 == $row['hispanic_is_present'])
 
 else 
 {
-	$hispanic_column_name = "'99'";  // We'll use this code for "unknown".
+	$hispanic_column_name = "NULL";
 }
 
 $sql = "SELECT
