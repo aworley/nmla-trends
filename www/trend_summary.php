@@ -71,7 +71,7 @@ function trend_summary($base_url = '', $mode = 'www')
 {
 	$trend_email_min_cutoff = 2;
 	$sample_size_min_cutoff = 9;
-	$trends_list_max_size = 5;
+	$top_trends_max_size = 10;
 	$output = '';
 	
 	if (isset($_GET['all']))  // Trends by problem code.
@@ -173,7 +173,7 @@ else
 		
 		$i++;
 
-		if ($i >= $trends_list_max_size)
+		if ($i >= $top_trends_max_size)
 		{
 			break;
 		}
