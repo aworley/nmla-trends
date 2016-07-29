@@ -311,11 +311,6 @@ $sort_order = pl_grab_get('sort_order', 'desc');
     	<li> <a href="logout.php">Logout</a></li>
     </ul>
   </div>
-  <div class="col-md-2">
-    <form action="csv.php" method="GET">
-      <input type="submit" class="btn btn-primary" value="Export Entire Database">
-    </form>
-  </div>
 </div>
 
 <!--
@@ -422,9 +417,17 @@ Date range (Overrides the previous selection)<br>
 		<option value="asc">Ascending</option>
 		<option value="desc" selected>Descending</option>
 		</select></label></p>
-
+</div>
+<div>
+  <div class="col-md-8">
 <input type="submit" class="btn btn-success" value="Run Report">
 <input type="submit" class="btn btn-success" name="csv_mode" value="Download Data">
+</div>
+<div class="col-md-4">
+  <form action="csv.php" method="GET">
+    <input type="submit" class="btn btn-primary" value="Export Entire Database">
+  </form>
+</div>
 </form>
 </div>
 <div> <!-- style="padding-top: 31.5em;" -->
