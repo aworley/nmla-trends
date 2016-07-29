@@ -419,17 +419,11 @@ Date range (Overrides the previous selection)<br>
 		</select></label></p>
 </div>
 <div>
-  <div class="col-md-8">
 <input type="submit" class="btn btn-success" value="Run Report">
 <input type="submit" class="btn btn-success" name="csv_mode" value="Download Data">
-</div>
-<div class="col-md-4">
-  <form action="csv.php" method="GET">
-    <input type="submit" class="btn btn-primary" value="Export Entire Database">
-  </form>
+<a href="csv.php" class="btn btn-success">Export Entire Database</a>
 </div>
 </form>
-</div>
 <div> <!-- style="padding-top: 31.5em;" -->
 <h2> Report Results</h2>
 <table class="table table-striped">
