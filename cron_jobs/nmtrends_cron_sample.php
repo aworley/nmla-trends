@@ -14,6 +14,11 @@ define('DB_PASS','mysql_password');
 $skip_opposing = false;
 $skip_race = false;
 
+$skip_extras = true;  
+/* Veteran in household, primary language,
+ children in household, persons helped,
+ poverty level, and client age at intake. */
+
 // End USER SETTINGS section
 include('nmtrends_upload_v1_1.php');
 ?>

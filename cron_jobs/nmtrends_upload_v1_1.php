@@ -90,7 +90,13 @@ $sql = "SELECT
 			cases.judge_name,
 			LPAD(cases.problem, 2, '0') AS problem,
 			cases.outcome,
-			cases.opp_info_opt_in
+			cases.opp_info_opt_in,
+			veteran_household,
+			language,
+			children,
+			persons_helped,
+			poverty,
+			client_age
 		FROM cases
 		LEFT JOIN contacts AS pri_client ON cases.client_id = pri_client.contact_id
 		WHERE cases.open_date > DATE_SUB(CURDATE(), INTERVAL 3 YEAR)
@@ -160,6 +166,16 @@ while($row = mysql_fetch_assoc($result))
 	}
 	
 	//echo $row['opposing_party'] . "\n";
+
+	if (!isset($skip_extras) || $skip_extras == true)
+	{
+		$row['veteran_household'] = null;
+		$row['language'] = null;
+		$row['children'] = null;
+		$row['persons_helped'] = null;
+		$row['poverty'] = null;
+		$row['client_age'] = null;
+	}
 	
 	$trends_array[] = $row;
 }

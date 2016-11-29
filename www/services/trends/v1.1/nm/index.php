@@ -121,7 +121,13 @@ switch($action) {
 							'judge_name',
 							'problem',
 							'outcome',
-							'opposing_party');
+							'opposing_party',
+							'veteran_household',
+							'language',
+							'children',
+							'persons_helped',
+							'poverty',
+							'client_age');
 		$col_list = "`" . implode('`, `',$col_list_array) . "`";
 		$case_count = 0;
 
