@@ -31,6 +31,12 @@ function build_report_sql($select_columns)
   $sql .= build_where('outcome');
   $sql .= build_where('zip');
   $sql .= build_where('county');
+  $sql .= build_where('veteran_household');
+  $sql .= build_where('language');
+  $sql .= build_where('children');
+  $sql .= build_where('persons_helped');
+  $sql .= build_where('poverty');
+  $sql .= build_where('client_age');
 
   $org = mysql_escape_string(pl_grab_get('org'));
   if ($org && $org !='all')
@@ -80,12 +86,12 @@ if (isset($_GET['csv_mode']))
   header('Content-Type: text/csv; charset=utf-8');
   header("Content-Disposition: attachment; filename={$download_name}.csv");
   
-  $columns = array('organization', 'open date', 'close date', 'gender', 'race', 'hispanic', 'disabled', 'age over 60', 'zip code', 'county', 'opposing party', 'court name', 'judge name', 'problem', 'outcome');
+  $columns = array('organization', 'open date', 'close date', 'gender', 'race', 'hispanic', 'disabled', 'age over 60', 'zip code', 'county', 'opposing party', 'court name', 'judge name', 'problem', 'outcome', 'veteran_household', 'language', 'children', 'persons_helped', 'poverty', 'client_age');
   $output = fopen('php://output', 'w');
   fputcsv($output, $columns);
   flush();
   fclose($output);
-  echo sql_to_csv(build_report_sql("username, open_date, IFNULL(close_date, ''), gender, race, hispanic, disabled, age_over_60, zip, county, opposing_party, court_name, judge_name, problem, outcome"));
+  echo sql_to_csv(build_report_sql("username, open_date, IFNULL(close_date, ''), gender, race, hispanic, disabled, age_over_60, zip, county, opposing_party, court_name, judge_name, problem, outcome, veteran_household, language, children, persons_helped, poverty, client_age"));
   exit();
 }
 
@@ -376,6 +382,8 @@ Show records from&nbsp;
 	//draw_menu('judge_name', '');
 	draw_menu('problem', '');
 	draw_menu('outcome', '');
+	draw_menu('veteran_household', '');
+	draw_menu('language', '');
 ?>
 </p>
 
@@ -411,6 +419,12 @@ Date range (Overrides the previous selection)<br>
 		<option value="judge_name">Judge</option>
 		<option value="problem">Problem Code</option>
 		<option value="outcome">Outcome</option>
+		<option value="veteran_household">Veteran in Household</option>
+		<option value="language">Language</option>
+		<option value="children">Children Helped</option>
+		<option value="persons_helped">Persons Helped</option>
+		<option value="poverty">Household Poverty Level</option>
+		<option value="client_age">Client Age</option>
 		</select></label>
 <label>Report order
 <select class="form-control input-sm" name="sort_order" id="sort_order">
@@ -427,7 +441,7 @@ Date range (Overrides the previous selection)<br>
 <div> <!-- style="padding-top: 31.5em;" -->
 <h2> Report Results</h2>
 <table class="table table-striped">
-<tr><th>Organization</th><th>Open&nbsp;Date</th><th>Close&nbsp;Date</th><th>Gender</th><th>Race</th><th>Hispanic</th><th>Disabled</th><th>Older&nbsp;than&nbsp;60&nbsp;yrs</th><th>ZIP&nbsp;Code</th><th>County</th><th>Opposing&nbsp;Party</th><th>Court</th><th>Judge</th><th>LSC&nbsp;Problem&nbsp;Code</th><th>Outcome&nbsp;Code</th></tr>
+<tr><th>Organization</th><th>Open&nbsp;Date</th><th>Close&nbsp;Date</th><th>Gender</th><th>Race</th><th>Hispanic</th><th>Disabled</th><th>Older&nbsp;than&nbsp;60&nbsp;yrs</th><th>ZIP&nbsp;Code</th><th>County</th><th>Opposing&nbsp;Party</th><th>Court</th><th>Judge</th><th>LSC&nbsp;Problem&nbsp;Code</th><th>Outcome&nbsp;Code</th><th>Veteran&nbsp;in&nbsp;Household</th><th>Language</th><th>Children&nbsp;Helped</th><th>Persons&nbsp;Helped</th><th>Household&nbsp;Poverty&nbsp;Level</th><th>Client&nbsp;Age</th></tr>
 <?php 
 
 $sql = build_report_sql("cases.*, username, site_url");
