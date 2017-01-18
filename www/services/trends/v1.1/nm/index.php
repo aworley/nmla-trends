@@ -363,7 +363,81 @@ switch($action) {
 			{
 				$case_row['hispanic'] = null;
 			}
-			
+
+			// Outcomes
+			$outcome_lookup['1'] = array();
+			$outcome_lookup['1']['A'] = 'Advice';
+			$outcome_lookup['1']['L'] = 'Lost/Hearing Lost/Settled Unfavorably';
+			$outcome_lookup['1']['W'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['1']['M'] = 'Mixed Result';
+			$outcome_lookup['1']['N'] = 'NA';
+
+			$outcome_lookup['3'] = array();
+			$outcome_lookup['3']['A'] = 'Advice';
+			$outcome_lookup['3']['14'] = 'Advice';
+			$outcome_lookup['3']['2'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['3'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['4'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['5'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['6'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['7'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['8'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['9'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['16'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['17'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['3']['1'] = 'NA';
+			$outcome_lookup['3']['10'] = 'NA';
+			$outcome_lookup['3']['11'] = 'NA';
+			$outcome_lookup['3']['12'] = 'NA';
+			$outcome_lookup['3']['13'] = 'NA';
+			$outcome_lookup['3']['15'] = 'NA';
+
+			$outcome_lookup['4'] = array();
+			$outcome_lookup['4']['2'] = 'Lost/Hearing Lost/Settled Unfavorably';
+			$outcome_lookup['4']['4'] = 'Lost/Hearing Lost/Settled Unfavorably';
+			$outcome_lookup['4']['6'] = 'Lost/Hearing Lost/Settled Unfavorably';
+			$outcome_lookup['4']['1'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['4']['3'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['4']['5'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['4']['7'] = 'No Effect';
+			$outcome_lookup['4']['8'] = 'NA';
+			$outcome_lookup['4']['1'] = 'NA';
+			$outcome_lookup['4']['9'] = 'NA';
+			$outcome_lookup['4']['10'] = 'NA';
+
+			$outcome_lookup['6'] = array();
+			$outcome_lookup['6']['2'] = 'Lost/Hearing Lost/Settled Unfavorably';
+			$outcome_lookup['6']['4'] = 'Lost/Hearing Lost/Settled Unfavorably';
+			$outcome_lookup['6']['6'] = 'Lost/Hearing Lost/Settled Unfavorably';
+			$outcome_lookup['6']['1'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['6']['3'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['6']['5'] = 'Won/Hearing Won/Settled Favorably';
+			$outcome_lookup['6']['7'] = 'No Effect';
+			$outcome_lookup['6']['8'] = 'NA';
+
+			if (array_key_exists($case_row['outcome'], $outcome_lookup[$auth_row['organization_id']])
+			{
+				$case_row['outcome'] = $outcome_lookup[$auth_row['organization_id']][$case_row['outcome']];
+			}
+			// End outcome data mapping.
+
+			// Veteran in Household.
+			switch ($case_row['veteran_household'])
+			{
+				case '1':
+				$case_row['veteran_household'] = 'Yes';
+				break;
+
+				case '0':
+				$case_row['veteran_household'] = 'No';
+				break;
+
+				case '2':
+				$case_row['veteran_household'] = 'NA';
+				break;
+			}
+			// End Veteran in Household data mapping.
+
 			foreach ($col_list_array as $field_name)
 			{
 				// AMW 2013-12-03 - problem code cleanup
