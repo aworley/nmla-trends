@@ -92,13 +92,14 @@ $sql = "SELECT
 			cases.outcome,
 			cases.opp_info_opt_in,
 			veteran_household,
-			language,
+			label AS language,
 			children,
 			persons_helped,
 			poverty,
 			client_age
 		FROM cases
 		LEFT JOIN contacts AS pri_client ON cases.client_id = pri_client.contact_id
+		LEFT JOIN menu_language ON pri_client.language = menu_language.value
 		WHERE cases.open_date > DATE_SUB(CURDATE(), INTERVAL 3 YEAR)
 		AND cases.status != 4
 		AND cases.open_date <= CURDATE()
