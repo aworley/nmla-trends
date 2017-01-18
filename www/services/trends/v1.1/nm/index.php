@@ -182,8 +182,9 @@ switch($action) {
 					}
 			}
 			
-			if ($case_row['hispanic'] != 1 && $case_row['race'] == 'H' &&
-					$auth_row['organization_id'] == '3')
+			if ($case_row['hispanic'] != 1 
+				&& ($case_row['race'] == 'H' || $case_row['race'] == '30')
+				&& $auth_row['organization_id'] == '3')
 			{
 						$case_row['hispanic'] = 1;
 			}
@@ -340,6 +341,12 @@ switch($action) {
 				$case_row['race'] = 'Not Entered';
 			}
 			
+			else if ($case_row['race'] == 'H' && 
+					$auth_row['organization_id'] == '3')
+			{
+				$case_row['race'] = 'Not Entered';
+			}
+
 			else if ($case_row['race'] == 'H' && $auth_row['organization_id'] == '3')
 			{
 				$case_row['race'] = 'Not Entered';
