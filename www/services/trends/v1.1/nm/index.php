@@ -153,7 +153,6 @@ switch($action) {
 			}
 			*/
 			
-			$val_list_array = array();
 			$case_row['organization_id'] = $auth_row['organization_id'];
 
 			// AMW 2014-05-18 - Temp fix.  Someone jumbled the ethnicity/race/hispanic values.
@@ -438,12 +437,14 @@ switch($action) {
 			}
 			// End Veteran in Household data mapping.
 
+			$val_list = '';
+
 			foreach ($col_list_array as $field_name)
 			{
 				// AMW 2013-12-03 - problem code cleanup
 				$z = mysql_real_escape_string($case_row[$field_name]);
 				
-				if('problem' == $field_name)
+				if('problem' == $field_name && strlen($z) != 0)
 				{
 					$z = substr($z, 0, 2);
 					$z = str_pad($z, 2, "0", STR_PAD_LEFT);
@@ -454,11 +455,26 @@ switch($action) {
 				{
 				}
 				*/
-				
-				$val_list_array[] = $z;
-			}
 			
-			$val_list = "'" . implode("', '",$val_list_array) . "'";
+                                if ($field_name == organization_id)
+                                {
+	                                $val_list .= "'{$z}'";
+                                }
+
+                                else
+                                {
+                                        if (strlen($z) == 0)
+                                        {
+                                                $val_list .= ", null";
+                                        }
+
+                                        else
+                                        {
+                                                $val_list .= ", '{$z}'";
+                                        }
+                                }
+                        }
+                        
 			$sql = "INSERT INTO cases
 					({$col_list})			
 					VALUES ({$val_list})";
