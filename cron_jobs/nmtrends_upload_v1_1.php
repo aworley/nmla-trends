@@ -27,9 +27,9 @@ $skip_race = true;
 
 // ### Application code starts here. ###
 
-set_time_limit(300);
+set_time_limit(1800);
 ini_set('display_errors','On');
-ini_set('memory_limit','512M');
+ini_set('memory_limit','1024M');
 
 mysql_connect(DB_HOST,DB_USER,DB_PASS);
 mysql_select_db(DB_NAME);

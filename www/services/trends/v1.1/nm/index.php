@@ -45,9 +45,9 @@ function pl_grab_req($var_name = null,$default_value = null)
 $action = pl_grab_req('action');
 
 
-set_time_limit(0);
+set_time_limit(1800);
 ini_set('display_errors','Off');
-ini_set('memory_limit','999M');
+ini_set('memory_limit','1024M');
 
 mysql_connect(DB_HOST,DB_USER,DB_PASS);
 mysql_select_db(DB_NAME);
