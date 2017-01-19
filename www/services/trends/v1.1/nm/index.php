@@ -414,7 +414,7 @@ switch($action) {
 			$outcome_lookup['6']['7'] = 'No Effect';
 			$outcome_lookup['6']['8'] = 'NA';
 
-			if (array_key_exists($case_row['outcome'], $outcome_lookup[$auth_row['organization_id']])
+			if (array_key_exists($case_row['outcome'], $outcome_lookup[$auth_row['organization_id']]))
 			{
 				$case_row['outcome'] = $outcome_lookup[$auth_row['organization_id']][$case_row['outcome']];
 			}
