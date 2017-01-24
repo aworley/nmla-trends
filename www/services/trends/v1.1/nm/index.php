@@ -459,7 +459,7 @@ switch($action) {
 				
 				if('problem' == $field_name && strlen($z) != 0)
 				{
-					$z = substr($z, 0, 2);
+					$z = substr($z, 0, 3);
 					$z = str_pad($z, 2, "0", STR_PAD_LEFT);
 				}
 
