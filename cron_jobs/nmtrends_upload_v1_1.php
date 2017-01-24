@@ -178,6 +178,15 @@ while($row = mysql_fetch_assoc($result))
 		$row['client_age'] = null;
 	}
 	
+	// This foreach loop will fix any malformed UTF chars, so json_encode doesn't fail.
+ 	foreach ($row as $abc => $xyz)
+ 	{
+ 		if (!is_null($xyz))
+		{
+ 			$row[$abc] = utf8_encode($xyz);
+		}
+ 	}
+	
 	$trends_array[] = $row;
 }
 
