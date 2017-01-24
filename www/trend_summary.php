@@ -57,7 +57,7 @@ function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 	$o .= "<script type=\"text/javascript\">\n";
 	$o .= "	$(document).ready(function(){ \n";
 	$o .= "	  var plot{$chart_id} = $.jqplot ('chart{$chart_id}', [[{$chart_data}]], {
-	title:'" .$label ."',
+	title:'" . addslashes($label) . "',
 	axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer}},
 	series:[{lineWidth:4, markerOptions:{style:'square'}}]
 }); \n";
@@ -188,3 +188,4 @@ $output .= '
 ';
 	return $output;
 }
+
