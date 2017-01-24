@@ -192,23 +192,18 @@ while($row = mysql_fetch_assoc($result))
 
 $json = json_encode($trends_array);
 $content = http_build_query(array('action' => 'upload', 'data' => gzcompress($json)));
-$options = array('http'=>
-					array('method'=> 'POST',
-		   				'header' => "Content-type: application/x-www-form-urlencoded" . PHP_EOL .
-		   							"Content-Length: " . strlen($content) . PHP_EOL .
-		   							"Authorization: Basic " . base64_encode((NMTRENDS_USERNAME.":".NMTRENDS_PASSWORD)) . PHP_EOL,
-		   				'content' => $content
-					)
-				);
 
-$ctx = stream_context_create($options);
-if(($fp = fopen(NMTRENDS_REST_URI . 'upload','r',false,$ctx)) !== FALSE)
-{
-	$response = stream_get_contents($fp);
-	//echo $response;
-	fclose($fp);	
-}
-
+$process = curl_init();
+curl_setopt($process, CURLOPT_URL,NMTRENDS_REST_URI . 'upload');
+curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-type: application/x-www-form-urlencoded', "Content-Length: " . strlen($content)));
+curl_setopt($process, CURLOPT_HEADER, 1);
+curl_setopt($process, CURLOPT_USERPWD, NMTRENDS_USERNAME . ":" . NMTRENDS_PASSWORD);
+curl_setopt($process, CURLOPT_TIMEOUT, 300);
+curl_setopt($process, CURLOPT_POST, 1);
+curl_setopt($process, CURLOPT_POSTFIELDS, $content);
+curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+$return = curl_exec($process);
+curl_close($process);
 
 exit();
 	
