@@ -456,7 +456,7 @@ switch($action) {
 				}
 				*/
 			
-                                if ($field_name == organization_id)
+                                if ($field_name == 'organization_id')
                                 {
 	                                $val_list .= "'{$z}'";
                                 }
