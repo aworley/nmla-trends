@@ -443,6 +443,11 @@ switch($action) {
 				$case_row['problem'] = '16';
 			}
 
+			else if ($case_row['problem'] == '78a' && $auth_row['organization_id'] == 2)
+			{
+				$case_row['problem'] = '27';
+			}
+
 			// Fix overlapping Problem Codes
 			else if ($case_row['problem'] == '12' && $auth_row['organization_id'] == 3)
 			{
