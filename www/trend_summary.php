@@ -49,7 +49,14 @@ function trend_graph($problem, $case_trend, $label, $chart_id, $base_url)
 		$trend_label = "trending lower";
 	}
 	
-	$o .= "<tr><td>New problem code {$label} cases are {$trend_label}.</td><td align=\"right\"><a href=\"{$base_url}/reporting.php?problem={$problem}\" class=\"btn btn-default btn-lg\">See cases <img src=\"{$base_url}/glyphicons/png/glyphicons_119_table.png\"></a>&nbsp;</td></tr>\n";
+	$blank_label = '';
+	
+	if (strlen($label) < 1)
+	{
+		$blank_label = ' blank';
+	}
+
+	$o .= "<tr><td>New{$blank_label} problem code {$label} cases are {$trend_label}.</td><td align=\"right\"><a href=\"{$base_url}/reporting.php?problem={$problem}\" class=\"btn btn-default btn-lg\">See cases <img src=\"{$base_url}/glyphicons/png/glyphicons_119_table.png\"></a>&nbsp;</td></tr>\n";
 	
 	$o .= "<tr><td colspan=\"2\">";
 	
