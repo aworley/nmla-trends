@@ -102,7 +102,7 @@ CREATE TABLE `problem_recent` (
 CREATE TABLE `stats` (
   `stat_id` int(11) NOT NULL AUTO_INCREMENT,
   `case_trend` int(11) DEFAULT NULL,
-  `problem` char(2) DEFAULT NULL,
+  `problem` char(3) DEFAULT NULL,
   `stat_year` char(4) DEFAULT NULL,
   `stat_month` char(2) DEFAULT NULL,
   `current` int(11) DEFAULT NULL,
