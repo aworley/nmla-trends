@@ -262,6 +262,46 @@ function draw_menu($column, $default_value)
 	echo "</select></label>\n";
 }
 
+function draw_problem_menu()
+{
+	$x = 'problem';
+	$y = mysql_real_escape_string(pl_grab_get('problem'));
+	
+	echo "<label>{$x}<select class=\"form-control input-sm\" name=\"{$x}\">\n";
+	
+	if($y == '' || strlen($y) < 1)
+	{
+		$selected = " selected";
+	}
+	
+	else
+	{
+		$selected = "";
+	}
+	
+	echo "<option value=\"\"{$selected}>Show All</option>/n";
+	
+	$sql = "SELECT value, label FROM menu_problem_2008 ORDER BY menu_order ASC";
+	$result = mysql_query($sql);
+	
+	while($row = mysql_fetch_assoc($result))
+	{
+		if($y == $row['value'])
+		{
+			$selected = " selected";
+		}
+		
+		else
+		{
+			$selected = "";
+		}
+		
+		echo "<option value=\"{$row['value']}\"{$selected}>{$row['label']}</option>/n";
+	}
+
+	echo "</select></label>\n";
+}
+
 function build_where($column)
 {
 	$x = mysql_real_escape_string($column);
@@ -380,7 +420,7 @@ Show records from&nbsp;
 	draw_menu('county', '');
 	//draw_menu('court_name', '');
 	//draw_menu('judge_name', '');
-	draw_menu('problem', '');
+	draw_problem_menu('');
 	draw_menu('outcome', '');
 	draw_menu('veteran_household', '');
 	draw_menu('language', '');
