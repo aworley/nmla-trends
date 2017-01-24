@@ -437,6 +437,19 @@ switch($action) {
 			}
 			// End Veteran in Household data mapping.
 
+			// Merge duplicate Problem Codes			
+			if ($case_row['problem'] == '11' && $auth_row['organization_id'] == 2)
+			{
+				$case_row['problem'] = '16';
+			}
+
+			// Fix overlapping Problem Codes
+			else if ($case_row['problem'] == '12' && $auth_row['organization_id'] == 3)
+			{
+				$case_row['problem'] = '12b';
+			}
+			// End Problem Codes
+
 			$val_list = '';
 
 			foreach ($col_list_array as $field_name)
