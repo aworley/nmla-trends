@@ -198,7 +198,7 @@ function draw_menu($column, $default_value)
 	
 	echo "<option value=\"\"{$selected}>Show All</option>/n";
 	
-	if ($x == 'disabled' || $x == 'age_over_60')
+	if ($x == 'disabled' || $x == 'age_over_60' || $x == 'hispanic')
 	{
                 if($y == 1)
                 {
