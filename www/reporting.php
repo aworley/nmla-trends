@@ -91,7 +91,7 @@ if (isset($_GET['csv_mode']))
   fputcsv($output, $columns);
   flush();
   fclose($output);
-  echo sql_to_csv(build_report_sql("username, open_date, IFNULL(close_date, ''), gender, race, hispanic, disabled, age_over_60, zip, county, opposing_party, court_name, judge_name, problem, outcome, veteran_household, language, children, persons_helped, poverty, client_age"));
+  echo sql_to_csv(build_report_sql("username, open_date, IFNULL(close_date, ''), gender, race, hispanic, disabled, age_over_60, zip, county, opposing_party, court_name, judge_name, problem, outcome, veteran_household, language, children, persons_helped, poverty, client_age, client_id, close_code, city_ethnicity, city_problem, city_poverty"));
   exit();
 }
 
@@ -465,6 +465,7 @@ Date range (Overrides the previous selection)<br>
 		<option value="persons_helped">Persons Helped</option>
 		<option value="poverty">Household Poverty Level</option>
 		<option value="client_age">Client Age</option>
+		<option value="close_code">Close Code</option>
 		</select></label>
 <label>Report order
 <select class="form-control input-sm" name="sort_order" id="sort_order">

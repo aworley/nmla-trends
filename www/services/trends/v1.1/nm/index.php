@@ -127,7 +127,13 @@ switch($action) {
 							'children',
 							'persons_helped',
 							'poverty',
-							'client_age');
+							'client_age',
+							'client_age',
+							'client_id',
+							'close_code',
+							'city_ethnicity',
+							'city_problem',
+							'city_poverty');
 		$col_list = "`" . implode('`, `',$col_list_array) . "`";
 		$case_count = 0;
 

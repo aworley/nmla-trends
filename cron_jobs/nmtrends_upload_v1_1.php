@@ -74,6 +74,20 @@ else
 	$hispanic_column_name = "NULL";
 }
 
+if ($skip_sclo == true)
+{
+	$sclo0_column_name = 'NULL';
+	$sclo1_column_name = 'NULL';
+	$sclo2_column_name = 'NULL';
+}
+
+else
+{
+	$sclo0_column_name = 'city_ethnicity';
+	$sclo1_column_name = 'city_problem';
+	$sclo2_column_name = 'city_poverty';
+}
+
 $sql = "SELECT
 			cases.case_id AS cms_case_id,
 			cases.created AS cms_case_created,
@@ -96,7 +110,12 @@ $sql = "SELECT
 			children,
 			persons_helped,
 			poverty,
-			client_age
+			client_age,
+			client_id,
+			close_code,
+			{$sclo0_column_name} AS city_ethnicity,
+			{$sclo1_column_name} AS city_problem,
+			{$sclo2_column_name} AS city_poverty
 		FROM cases
 		LEFT JOIN contacts AS pri_client ON cases.client_id = pri_client.contact_id
 		LEFT JOIN menu_language ON pri_client.language = menu_language.value
