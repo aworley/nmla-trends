@@ -3,6 +3,7 @@
 
 // Start USER SETTINGS section 
 
+define('NMTRENDS_REST_URI','https://server-name/nmtrends/services/trends/v1.1/nm/');
 define('NMTRENDS_USERNAME','trends_server_username');
 define('NMTRENDS_PASSWORD','trends_server_password');
 

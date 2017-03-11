@@ -6,8 +6,6 @@
 /* http://pikasoftware.com        */
 /**********************************/
 
-define('NMTRENDS_REST_URI','https://server-name/nmtrends/services/trends/v1.1/nm/');
-
 set_time_limit(1800);
 ini_set('display_errors','On');
 ini_set('memory_limit','1024M');
