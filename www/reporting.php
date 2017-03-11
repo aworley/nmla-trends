@@ -227,36 +227,36 @@ function draw_menu($column, $default_value)
 
 	else
 	{
-	if ($x == 'zip')
-	{
-		$sql = "SELECT DISTINCT SUBSTRING(zip, 1, 5) AS zip, count(*) as a FROM cases GROUP BY zip ORDER BY zip ASC";
-	}
-	
-	else
-	{
-		$sql = "SELECT {$x}, count(*) as a FROM cases GROUP BY {$x} ORDER BY {$x} ASC";
-	}
-	
-	//echo $sql;
-	$result = mysql_query($sql);
-	
-	while($row = mysql_fetch_assoc($result))
-	{
-		if($y == $row[$x])
+		if ($x == 'zip')
 		{
-			$selected = " selected";
+			$sql = "SELECT DISTINCT SUBSTRING(zip, 1, 5) AS zip, count(*) as a FROM cases GROUP BY zip ORDER BY zip ASC";
 		}
 		
 		else
 		{
-			$selected = "";
+			$sql = "SELECT {$x}, count(*) as a FROM cases GROUP BY {$x} ORDER BY {$x} ASC";
 		}
 		
-		if (strlen(trim($row[$x])) > 0 && $row['a'] > 9  && $row[$x] != 'Bernaillo')
+		//echo $sql;
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_assoc($result))
 		{
-			echo "<option value=\"{$row[$x]}\"{$selected}>{$row[$x]}</option>/n";
+			if($y == $row[$x])
+			{
+				$selected = " selected";
+			}
+			
+			else
+			{
+				$selected = "";
+			}
+			
+			if (strlen(trim($row[$x])) > 0 && $row['a'] > 9  && $row[$x] != 'Bernaillo')
+			{
+				echo "<option value=\"{$row[$x]}\"{$selected}>{$row[$x]}</option>/n";
+			}
 		}
-	}
 	}
 
 	echo "</select></label>\n";
