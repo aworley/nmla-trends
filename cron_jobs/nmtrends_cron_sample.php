@@ -19,6 +19,8 @@ $skip_extras = true;
 /* Veteran in household, primary language,
  children in household, persons helped,
  poverty level, and client age at intake. */
+ 
+$skip_sclo = true;
 
 // End USER SETTINGS section
 include('nmtrends_upload_v1_1.php');
