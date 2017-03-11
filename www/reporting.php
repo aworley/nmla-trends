@@ -232,6 +232,11 @@ function draw_menu($column, $default_value)
 			$sql = "SELECT DISTINCT SUBSTRING(zip, 1, 5) AS zip, count(*) as a FROM cases GROUP BY zip ORDER BY zip ASC";
 		}
 		
+		else if ($x == 'county')
+		{
+			$sql = "SELECT county, 10 AS a FROM counties ORDER BY county ASC";
+		}
+		
 		else
 		{
 			$sql = "SELECT {$x}, count(*) as a FROM cases GROUP BY {$x} ORDER BY {$x} ASC";
