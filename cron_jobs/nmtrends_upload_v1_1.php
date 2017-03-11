@@ -37,6 +37,16 @@ if (!isset($skip_extras))
 	$skip_extras = true; 
 }
 
+if (!isset($skip_client_id))
+{
+	$skip_client_id = true;
+}
+
+if (!isset($skip_close_code))
+{
+	$skip_close_code = true;
+}
+
 if (!isset($skip_sclo))
 {
 	$skip_sclo = true;
@@ -195,7 +205,17 @@ while($row = mysql_fetch_assoc($result))
 		$row['poverty'] = null;
 		$row['client_age'] = null;
 	}
-	
+
+	if ($skip_client_id == true)
+	{
+		$row['client_id'] = null;
+	}
+
+	if ($skip_close_code == true)
+	{
+		$row['close_code'] = null;
+	}
+		
 	// This foreach loop will fix any malformed UTF chars, so json_encode doesn't fail.
  	foreach ($row as $abc => $xyz)
  	{

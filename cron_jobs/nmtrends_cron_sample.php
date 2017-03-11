@@ -19,7 +19,9 @@ $skip_extras = true;
 /* Veteran in household, primary language,
  children in household, persons helped,
  poverty level, and client age at intake. */
- 
+
+$skip_client_id = true;
+$skip_close_code = true;
 $skip_sclo = true;
 
 // End USER SETTINGS section
