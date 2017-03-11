@@ -20,7 +20,27 @@ if (PHP_SAPI != "cli") {
 }
 
 
+// Set safe default values for settings variables, in case they don't get set
+// in the config file.
+if (!isset($skip_opposing))
+{
+	$skip_opposing = true;
+}
 
+if (!isset($skip_race))
+{
+	$skip_race = true;
+}
+
+if (!isset($skip_extras))
+{
+	$skip_extras = true; 
+}
+
+if (!isset($skip_sclo))
+{
+	$skip_sclo = true;
+}
 
 // Run a query to collect the information we need.
 // 20130712 - MDF - custom code for NMBAR - they don't track race
