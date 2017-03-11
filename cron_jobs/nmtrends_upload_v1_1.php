@@ -8,25 +8,6 @@
 
 define('NMTRENDS_REST_URI','https://server-name/nmtrends/services/trends/v1.1/nm/');
 
-// Start USER SETTINGS section 
-/*
-define('NMTRENDS_USERNAME','xxxx');
-define('NMTRENDS_PASSWORD','xxxx');
-
-define('DB_HOST','xxxx');
-define('DB_NAME','xxxx');
-define('DB_USER','xxxx');
-define('DB_PASS','xxxx');
-
-$skip_opposing = true;
-$skip_race = true;
-*/
-// End USER SETTINGS section
-// include('nmtrends_upload_v1_1.php');
-
-
-// ### Application code starts here. ###
-
 set_time_limit(1800);
 ini_set('display_errors','On');
 ini_set('memory_limit','1024M');
