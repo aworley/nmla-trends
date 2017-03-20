@@ -487,7 +487,16 @@ Date range (Overrides the previous selection)<br>
 <div> <!-- style="padding-top: 31.5em;" -->
 <h2> Report Results</h2>
 <table class="table table-striped">
-<tr><th>Organization</th><th>Open&nbsp;Date</th><th>Close&nbsp;Date</th><th>Gender</th><th>Race</th><th>Hispanic</th><th>Disabled</th><th>Older&nbsp;than&nbsp;60&nbsp;yrs</th><th>ZIP&nbsp;Code</th><th>County</th><th>Opposing&nbsp;Party</th><th>Court</th><th>Judge</th><th>LSC&nbsp;Problem&nbsp;Code</th><th>Outcome&nbsp;Code</th><th>Veteran&nbsp;in&nbsp;Household</th><th>Language</th><th>Children&nbsp;Helped</th><th>Persons&nbsp;Helped</th><th>Household&nbsp;Poverty&nbsp;Level</th><th>Client&nbsp;Age</th></tr>
+<tr>
+  <th>Organization</th><th>Open&nbsp;Date</th><th>Close&nbsp;Date</th>
+  <th>Gender</th><th>Race</th><th>Hispanic</th><th>Disabled</th>
+  <th>Older&nbsp;than&nbsp;60&nbsp;yrs</th><th>ZIP&nbsp;Code</th><th>County</th>
+  <th>Opposing&nbsp;Party</th><th>Court</th><th>Judge</th>
+  <th>LSC&nbsp;Problem&nbsp;Code</th><th>Outcome&nbsp;Code</th>
+  <th>Veteran&nbsp;in&nbsp;Household</th><th>Language</th>
+  <th>Children&nbsp;Helped</th><th>Persons&nbsp;Helped</th>
+  <th>Household&nbsp;Poverty&nbsp;Level</th><th>Client&nbsp;Age</th>
+</tr>
 <?php 
 
 $sql = build_report_sql("cases.*, username, site_url");
