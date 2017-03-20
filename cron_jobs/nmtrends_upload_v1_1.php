@@ -92,9 +92,9 @@ if ($skip_sclo == true)
 
 else
 {
-	$sclo0_column_name = 'city_ethnicity';
+	$sclo0_column_name = 'created';  // placeholder
 	$sclo1_column_name = 'city_problem';
-	$sclo2_column_name = 'city_poverty';
+	$sclo2_column_name = 'alb_poverty';
 }
 
 $sql = "SELECT
