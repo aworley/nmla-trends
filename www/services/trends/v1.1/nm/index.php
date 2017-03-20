@@ -128,7 +128,6 @@ switch($action) {
 							'persons_helped',
 							'poverty',
 							'client_age',
-							'client_age',
 							'client_id',
 							'close_code',
 							'city_ethnicity',
