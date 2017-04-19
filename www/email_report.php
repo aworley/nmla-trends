@@ -16,13 +16,15 @@ echo "<html>\n<head>\n";
 include('html_header.php');
 echo "</head><body>";
 
-if (true)
+if (false)
 {
   echo "This email alert software is currently in <strong>testing mode.</strong>\n";
   echo "It may send out multiple, duplicate emails on the same day, \n";
   echo "and the threshold for triggering an alert has be significantly lowered \n";
   echo "to aid the testing process.<hr>\n";
 }
+
+echo "This is an automated email report from the Trends database.<hr>\n";
 
 include('trend_summary.php');
 echo trend_summary($base_url, 'email');
