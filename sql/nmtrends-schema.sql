@@ -37,7 +37,6 @@ CREATE TABLE `cases` (
   client_age tinyint,
 client_id int,
 close_code varchar(64),
-city_ethnicity varchar(64),
 city_problem varchar(64),
 city_poverty varchar(64)
   PRIMARY KEY (`case_id`),

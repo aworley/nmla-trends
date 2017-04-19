@@ -85,14 +85,12 @@ else
 
 if ($skip_sclo == true)
 {
-	$sclo0_column_name = 'NULL';
 	$sclo1_column_name = 'NULL';
 	$sclo2_column_name = 'NULL';
 }
 
 else
 {
-	$sclo0_column_name = 'created';  // placeholder
 	$sclo1_column_name = 'city_problem';
 	$sclo2_column_name = 'alb_poverty';
 }
@@ -122,7 +120,6 @@ $sql = "SELECT
 			client_age,
 			client_id,
 			close_code,
-			{$sclo0_column_name} AS city_ethnicity,
 			{$sclo1_column_name} AS city_problem,
 			{$sclo2_column_name} AS city_poverty
 		FROM cases
