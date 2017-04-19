@@ -497,7 +497,7 @@ Date range (Overrides the previous selection)<br>
   <th>Children&nbsp;Helped</th><th>Persons&nbsp;Helped</th>
   <th>Household&nbsp;Poverty&nbsp;Level</th><th>Client&nbsp;Age</th>
   <th>Client&nbsp;ID</th><th>Close&nbsp;Code</th>
-  <th>SCLO:&nbsp;City&nbsp;Ethnicity</th><th>SCLO:&nbsp;City&nbsp;Problem</th>
+  <th>SCLO:&nbsp;City&nbsp;Problem</th>
   <th>SCLO:&nbsp;City&nbsp;Poverty</th>
 </tr>
 <?php 
