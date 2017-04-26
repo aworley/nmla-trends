@@ -164,8 +164,8 @@ switch($action) {
 			// upgrade their upload script.
 			if (2 == $auth_row['organization_id'])
 			{
-				$case_row['temp123456'] = $row['race'];
-				$case_row['race'] = $row['hispanic'];
+				$case_row['temp123456'] = $case_row['race'];
+				$case_row['race'] = $case_row['hispanic'];
 				$case_row['hispanic'] = $case_row['temp123456'];
 				unset($case_row['temp123456']);
 			}
