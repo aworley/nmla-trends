@@ -374,7 +374,9 @@ switch($action) {
 			$outcome_lookup['1']['W'] = 'Won/Hearing Won/Settled Favorably';
 			$outcome_lookup['1']['M'] = 'Mixed Result';
 			$outcome_lookup['1']['N'] = 'NA';
-
+			
+			$outcome_lookup['2'] = array();
+			
 			$outcome_lookup['3'] = array();
 			$outcome_lookup['3']['A'] = 'Advice';
 			$outcome_lookup['3']['14'] = 'Advice';
@@ -407,7 +409,9 @@ switch($action) {
 			$outcome_lookup['4']['1'] = 'NA';
 			$outcome_lookup['4']['9'] = 'NA';
 			$outcome_lookup['4']['10'] = 'NA';
-
+			
+			$outcome_lookup['5'] = array();
+			
 			$outcome_lookup['6'] = array();
 			$outcome_lookup['6']['2'] = 'Lost/Hearing Lost/Settled Unfavorably';
 			$outcome_lookup['6']['4'] = 'Lost/Hearing Lost/Settled Unfavorably';
